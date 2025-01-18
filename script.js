@@ -20,3 +20,12 @@ function Gameboard () {
 }
 
 Gameboard()
+
+function players (player1, player2) {
+    const playerOne = player1;
+    const playerTwo = player2;
+
+    function switchPlayerPlayer () {
+        activePlayer = activePlayer === player1 ? player2 : player1;
+    }
+}
