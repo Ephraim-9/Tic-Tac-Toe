@@ -1,0 +1,37 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body,html {
+    height: 100vh;
+
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: yellow;
+}
+
+.board {
+    box-shadow: 20px;
+}
+
+button {
+    height: 120px;
+    width: 120px;
+    margin: 7px;
+    background-color: blue;
+    border: .1px solid blue;
+    border-radius: 20px;
+    box-shadow: 0 0 50px 20px rgba(0, 52, 196, 0.671); /* Horizontal, Vertical, Blur, Color */
+
+}
+
+button:hover {
+    background-color: rgba(0, 0, 95, 0.664);
+}
