@@ -19,8 +19,8 @@ function Gameboard () {
         document.getElementById(`${row}`).appendChild(button);
     }
 
-    function renderMark (marker) {
-        document.getElementsByClassName('btn').innerText = `${marker}`
+    function renderMark (marker, rowId , colId) {
+        document.getElementById(`${rowId}, ${colId}`).innerText = `${marker}`
     }
 
 }
@@ -28,20 +28,34 @@ function Gameboard () {
 Gameboard()
 
 function GameControls () {
-    const playerOne = player1;
-    const playerTwo = player2;
+
+    function makePlayer (name, marker) {
+        return {
+            name: name,
+            marker: marker,
+            turn: function() {
+                return(`${this.name}'s turn.`);
+            }
+        };
+    }
     
-    function switchPlayerPlayer () {
+    const player1 = makePlayer ('p1', 'X');
+    const player2 = makePlayer ('p2', 'O');
+    
+    
+    function currentPlayer () {
         activePlayer = activePlayer === player1 ? player2 : player1;
     }
     
-    const playerMark = x    
+    const activePlayer = currentPlayer.activePlayer
 
-    function btnListener (marker) {
-        document.getElementsByClassName("btn").addEventListener("click", function() {  
-            renderMark(marker)  
-        });
+    function btnListener (row,col) {
+        document.getElementById(btn).addEventListener("click", renderMark());
+        debugger
     }
 
-    btnListener(playerMark)
+
+    btnListener(currentPlayer.marker)
 }
+
+GameControls()
