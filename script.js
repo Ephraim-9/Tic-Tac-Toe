@@ -25,7 +25,8 @@ const Gameboard = (function () {
     }
 
     function btnClicked (idBtn) {
-        console.log(`${idBtn} clicked`)
+        document.getElementById(idBtn).innerText = GameControls.getMarker()
+        GameControls.nextPlayer()
     }
 })();
 
@@ -34,15 +35,21 @@ const GameControls = (function () {
     function createPlayer (name,marker) {
         return {name, marker};
     }
-    const player1 = createPlayer ('p1', 'X')
-    const player2 = createPlayer ('p2', 'O')
+    player1 = createPlayer('p1', 'X')
+    player2 = createPlayer('p2', 'O')
 
     Gameboard.init()
 
+    let currentPlayer = player1; 
 
+    function switchPlayer () {
+        currentPlayer === player1 ? currentPlayer = player2 : currentPlayer = player1 
+    }
 
+    return {
+        getMarker: () => currentPlayer.marker,
+        nextPlayer: () => switchPlayer()
+    }
 
 })();
 
-
-// listen for click(for each button) -> get curentplayerMark -> set marker -> change current player
