@@ -1,61 +1,48 @@
-function Gameboard () {
-    for (let i = 0; i < 3; i += 1) {
-        renderRowDiv(i)
-        for ( let j = 0; j < 3; j += 1) {
-            renderButtons(i,j)
-        }
-    }
-
-    function renderRowDiv (row) {
+const Gameboard = (function () {
+    function renderRowDiv(row) {
         const rowDiv = document.createElement('div');
-        rowDiv.id = `${row}`;
+        rowDiv.id = `${row}`
         document.getElementById('board').appendChild(rowDiv);
     }
 
-    function renderButtons (row,col) {
+    function renderButtons (row, col) {
         const button = document.createElement('button');
-        button.id = `${row}, ${col}`;
+        button.id = `${row}-${col}`;
         button.className = 'btn'
         document.getElementById(`${row}`).appendChild(button);
+        document.getElementById(`${row}-${col}`).addEventListener("click", () => btnClicked(`${row}-${col}`));
     }
 
-    function renderMark (marker, rowId , colId) {
-        document.getElementById(`${rowId}, ${colId}`).innerText = `${marker}`
-    }
-
-}
-
-Gameboard()
-
-function GameControls () {
-
-    function makePlayer (name, marker) {
-        return {
-            name: name,
-            marker: marker,
-            turn: function() {
-                return(`${this.name}'s turn.`);
+    return {
+        init: function() {
+            for (let i = 0; i < 3; i++) {
+                renderRowDiv(i)
+                for (let j = 0; j < 3; j++) {
+                    renderButtons(i,j)
+                }
             }
-        };
-    }
-    
-    const player1 = makePlayer ('p1', 'X');
-    const player2 = makePlayer ('p2', 'O');
-    
-    
-    function currentPlayer () {
-        activePlayer = activePlayer === player1 ? player2 : player1;
-    }
-    
-    const activePlayer = currentPlayer.activePlayer
-
-    function btnListener (row,col) {
-        document.getElementById(btn).addEventListener("click", renderMark());
-        debugger
+        }
     }
 
+    function btnClicked (idBtn) {
+        console.log(`${idBtn} clicked`)
+    }
+})();
 
-    btnListener(currentPlayer.marker)
-}
 
-GameControls()
+const GameControls = (function () {
+    function createPlayer (name,marker) {
+        return {name, marker};
+    }
+    const player1 = createPlayer ('p1', 'X')
+    const player2 = createPlayer ('p2', 'O')
+
+    Gameboard.init()
+
+
+
+
+})();
+
+
+// listen for click(for each button) -> get curentplayerMark -> set marker -> change current player
