@@ -77,7 +77,8 @@ const WinnerLogic = (function () {
                 if ((boardState[0][0] === boardState[2][2] ||
                     boardState[0][2] === boardState[2][0]) &&
                    (boardState[0][0] === marker ||
-                    boardState[0][2] === marker)) {
+                    boardState[0][2] === marker) &&
+                (boardState[1][1])) {
                         return true
                }
                else {false}
@@ -87,14 +88,12 @@ const WinnerLogic = (function () {
         else {
             console.log(row, col)
             const rowwin = boardState[row].every((mark) => mark === marker)
-            // console.log(rowwin)
             const colArr = []
             for (let i = 0; i < 3; i++) {
                 let colMark = boardState[i][col]
                 colArr.push(colMark)
             }
             const colwin = colArr.every((mark) => mark === marker)
-            // console.log(colwin)    
         }
     }
 
