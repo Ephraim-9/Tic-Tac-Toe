@@ -74,10 +74,10 @@ const WinnerLogic = (function () {
         (row,col === 2,0 || row,col === 0,2) ||
         (row,col === 1,1)) {
             function diagwin () {
-                if ((boardState[0][0] === boardState[2][2] ||
-                    boardState[0][2] === boardState[2][0]) &&
-                   (boardState[0][0] === marker ||
-                    boardState[0][2] === marker) &&
+                if (((boardState[0][0] === boardState[2][2]) ||
+                    (boardState[0][2] === boardState[2][0])) &&
+                   ((boardState[0][0] === marker) ||
+                    (boardState[0][2] === marker)) &&
                 (boardState[1][1])) {
                         return true
                }
@@ -96,8 +96,6 @@ const WinnerLogic = (function () {
             const colwin = colArr.every((mark) => mark === marker)
         }
     }
-
-
 
      return {
          getWinner: (row, col) => winner(row, col) 
