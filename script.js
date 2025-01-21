@@ -34,11 +34,10 @@ const Gameboard = (function () {
     function btnClicked (row, col) {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
-        let winner = WinnerLogic.getWinner(row, col)
-        console.log(winner)
         GameControls.nextPlayer()
-        console.table(boardState)
-
+        if (WinnerLogic.getWinner(row, col) === true) {
+            alert(`${GameControls.getPlayer()} WON!`)
+        }
     }
 })();
 
@@ -60,6 +59,7 @@ const GameControls = (function () {
 
     return {
         getMarker: () => currentPlayer.marker,
+        getPlayer: () => currentPlayer.name,
         nextPlayer: () => switchPlayer()
     }
 
