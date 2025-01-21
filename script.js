@@ -34,7 +34,8 @@ const Gameboard = (function () {
     function btnClicked (row, col) {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
-        WinnerLogic.getWinner(row, col)
+        let winner = WinnerLogic.getWinner(row, col)
+        console.log(winner)
         GameControls.nextPlayer()
         console.table(boardState)
 
@@ -69,17 +70,32 @@ const WinnerLogic = (function () {
     let marker = GameControls.getMarker()
 
     function winner (row, col) {
-        console.log(row, col)
-        const rowwin = boardState[row].every((mark) => mark === marker)
-        console.log(rowwin)
-        const colArr = []
-        for (let i = 0; i < 3; i++) {
-            let colMark = boardState[i][col]
-            colArr.push(colMark)
+        if ((row,col === 0,0 || row,col === 2,2) ||
+        (row,col === 2,0 || row,col === 0,2) ||
+        (row,col === 1,1)) {
+            function diagwin () {
+                if ((boardState[0][0] === boardState[2][2] ||
+                    boardState[0][2] === boardState[2][0]) &&
+                   (boardState[0][0] === marker ||
+                    boardState[0][2] === marker)) {
+                        return true
+               }
+               else {false}
+            }
+            return diagwin()
         }
-        const colwin = colArr.every((mark) => mark === marker)
-        // console.log(colArr)
-        console.log(colwin)
+        else {
+            console.log(row, col)
+            const rowwin = boardState[row].every((mark) => mark === marker)
+            // console.log(rowwin)
+            const colArr = []
+            for (let i = 0; i < 3; i++) {
+                let colMark = boardState[i][col]
+                colArr.push(colMark)
+            }
+            const colwin = colArr.every((mark) => mark === marker)
+            // console.log(colwin)    
+        }
     }
 
 
