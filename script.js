@@ -37,6 +37,7 @@ const Gameboard = (function () {
         GameControls.nextPlayer()
         if (WinnerLogic.getWinner(row, col) === true) {
             alert(`${GameControls.getPlayer()} WON!`)
+            window.location.reload()
         }
     }
 })();
@@ -46,8 +47,8 @@ const GameControls = (function () {
     function createPlayer (name,marker) {
         return {name, marker};
     }
-    player1 = createPlayer('p1', 'X')
-    player2 = createPlayer('p2', 'O')
+    player1 = createPlayer('Player One', 'X')
+    player2 = createPlayer('Player Two', 'O')
 
     Gameboard.init()
 
@@ -73,7 +74,7 @@ const WinnerLogic = (function () {
         if ((row,col === 0,0 || row,col === 2,2) ||
         (row,col === 2,0 || row,col === 0,2) ||
         (row,col === 1,1)) {
-            function diagwin () {
+            function win () {
                 if (((boardState[0][0] === boardState[2][2]) &&
                     (boardState[0][2] === boardState[2][0])) ||
                    ((boardState[0][0] === marker) &&
@@ -81,19 +82,20 @@ const WinnerLogic = (function () {
                 (boardState[1][1])) {
                         return true
                }
-               else {false}
+               else if (boardState[row].every((mark) => mark === marker)) {
+                return true;
+               }
+               else{
+                const colArr = []
+                for (let i = 0; i < 3; i++) {
+                    let colMark = boardState[i][col]
+                    colArr.push(colMark)
+                }
+                const colwin = colArr.every((mark) => mark === marker)   
+                return colwin; 
+               }
             }
-            return diagwin()
-        }
-        else {
-            console.log(row, col)
-            const rowwin = boardState[row].every((mark) => mark === marker)
-            const colArr = []
-            for (let i = 0; i < 3; i++) {
-                let colMark = boardState[i][col]
-                colArr.push(colMark)
-            }
-            const colwin = colArr.every((mark) => mark === marker)
+            return win()
         }
     }
 
