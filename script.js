@@ -17,7 +17,6 @@ const Gameboard = (function () {
         button.id = `${row}-${col}`;
         button.className = 'btn'
         document.getElementById(row).appendChild(button);
-        document.getElementById(`${row}-${col}`).innerText = `${row}-${col}`
         document.getElementById(`${row}-${col}`).addEventListener("click", () => btnClicked(row,col));
     }
 
