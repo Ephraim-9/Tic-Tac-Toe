@@ -1,7 +1,14 @@
+let boardState = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+]
+
 const Gameboard = (function () {
+
     function renderRowDiv(row) {
         const rowDiv = document.createElement('div');
-        rowDiv.id = `${row}`
+        rowDiv.id = row
         document.getElementById('board').appendChild(rowDiv);
     }
 
@@ -9,8 +16,9 @@ const Gameboard = (function () {
         const button = document.createElement('button');
         button.id = `${row}-${col}`;
         button.className = 'btn'
-        document.getElementById(`${row}`).appendChild(button);
-        document.getElementById(`${row}-${col}`).addEventListener("click", () => btnClicked(`${row}-${col}`));
+        document.getElementById(row).appendChild(button);
+        document.getElementById(`${row}-${col}`).innerText = `${row}-${col}`
+        document.getElementById(`${row}-${col}`).addEventListener("click", () => btnClicked(row,col));
     }
 
     return {
@@ -24,9 +32,13 @@ const Gameboard = (function () {
         }
     }
 
-    function btnClicked (idBtn) {
-        document.getElementById(idBtn).innerText = GameControls.getMarker()
+    function btnClicked (row, col) {
+        document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
+        boardState[row][col] = GameControls.getMarker()
+        WinnerLogic.getWinner(row, col)
         GameControls.nextPlayer()
+        console.table(boardState)
+
     }
 })();
 
@@ -53,3 +65,31 @@ const GameControls = (function () {
 
 })();
 
+const WinnerLogic = (function () {
+
+    let marker = GameControls.getMarker()
+
+    function winner (row, col) {
+        console.log(row, col)
+        const rowwin = boardState[row].every((mark) => mark === marker)
+        console.log(rowwin)
+        const colArr = []
+        for (let i = 0; i < 3; i++) {
+            let colMark = boardState[i][col]
+            colArr.push(colMark)
+        }
+        const colwin = colArr.every((mark) => mark === marker)
+        // console.log(colArr)
+        console.log(colwin)
+    }
+
+
+
+     return {
+         getWinner: (row, col) => winner(row, col) 
+     }
+})();
+
+
+// mark placed > check up down, left right and diagonal till end (ie 0 || 2) 
+// > check is one of the direction is 
