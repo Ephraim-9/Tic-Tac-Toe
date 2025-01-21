@@ -34,10 +34,11 @@ const Gameboard = (function () {
     function btnClicked (row, col) {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
+        console.table(boardState)
         GameControls.nextPlayer()
         if (WinnerLogic.getWinner(row, col) === true) {
-            alert(`${GameControls.getPlayer()} WON!`)
             window.location.reload()
+            alert(`${GameControls.getPlayer()} WON!`)
         }
     }
 })();
@@ -75,11 +76,12 @@ const WinnerLogic = (function () {
         (row,col === 2,0 || row,col === 0,2) ||
         (row,col === 1,1)) {
             function win () {
-                if (((boardState[0][0] === boardState[2][2]) &&
-                    (boardState[0][2] === boardState[2][0])) ||
-                   ((boardState[0][0] === marker) &&
-                    (boardState[0][2] === marker)) &&
-                (boardState[1][1])) {
+                if ((boardState[0][0] === boardState[1][1] && 
+                    boardState[1][1] === boardState[2][2] &&
+                    boardState[1][1] === marker) ||
+                    boardState[2][0] === boardState[1][1] && 
+                    boardState[1][1] === boardState[0][2] &&
+                    boardState[1][1] === marker) {
                         return true
                }
                else if (boardState[row].every((mark) => mark === marker)) {
