@@ -41,9 +41,13 @@ const Gameboard = (function () {
         console.table(boardState)
         GameControls.nextPlayer()
         if (WinnerLogic.getWinner(row, col) === true) {
-            window.location.reload()
-            alert(`${GameControls.getPlayer()} WON!`)
+            window.setTimeout(gameOver, 100);
         }
+    }
+
+    function gameOver () {
+        alert(`${GameControls.getPlayer()} WON!`)
+        window.location.reload()
     }
 })();
 
@@ -88,17 +92,19 @@ const WinnerLogic = (function () {
                     boardState[1][1] === marker) {
                         return true
                }
-               else if (boardState[row].every((mark) => mark === marker)) {
-                return true;
-               }
-               else{
-                const colArr = []
-                for (let i = 0; i < 3; i++) {
-                    let colMark = boardState[i][col]
-                    colArr.push(colMark)
-                }
-                const colwin = colArr.every((mark) => mark === marker)   
-                return colwin; 
+               else {
+                if (boardState[row].every((mark) => mark === marker)) {
+                    return true;
+                   }
+                   else{
+                    const colArr = []
+                    for (let i = 0; i < 3; i++) {
+                        let colMark = boardState[i][col]
+                        colArr.push(colMark)
+                    }
+                    const colwin = colArr.every((mark) => mark === marker)  
+                    return colwin; 
+                   }
                }
             }
             return win()
@@ -109,7 +115,3 @@ const WinnerLogic = (function () {
          getWinner: (row, col) => winner(row, col) 
      }
 })();
-
-
-// mark placed > check up down, left right and diagonal till end (ie 0 || 2) 
-// > check is one of the direction is 
