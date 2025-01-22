@@ -47,9 +47,13 @@ const Gameboard = (function () {
             window.setTimeout(gameOver, 100);
         }
         else if (isTie()) {
+            showTitle("IT'S A TIE")
             window.setTimeout(gameOver, 100);
         }
-        else {GameControls.nextPlayer()}
+        else {
+            GameControls.nextPlayer()
+            showTitle(`IT'S ${GameControls.getPlayer()}'S  TURN!`)
+        }
     }
 
     function isTie () {
