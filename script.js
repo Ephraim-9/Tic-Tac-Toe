@@ -44,11 +44,11 @@ const Gameboard = (function () {
         boardState[row][col] = GameControls.getMarker()
         if (WinnerLogic.getWinner(row, col) === true) {
             showTitle(`${GameControls.getPlayer()} WON!!!`)
-            window.setTimeout(gameOver, 100);
+            window.setTimeout(gameOver, 1000);
         }
         else if (isTie()) {
             showTitle("IT'S A TIE")
-            window.setTimeout(gameOver, 100);
+            window.setTimeout(gameOver, 10);
         }
         else {
             GameControls.nextPlayer()
@@ -66,6 +66,7 @@ const Gameboard = (function () {
     }
 
     function gameOver () {
+        alert('GAME OVER!')
         window.location.reload()
     }
 })();
