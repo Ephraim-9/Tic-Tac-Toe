@@ -35,17 +35,21 @@ const Gameboard = (function () {
         }
     }
 
+    function showTitle (title) {
+        document.getElementById('title').innerText = `${title}`
+    }
+
     function btnClicked (row, col) {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
-        // console.table(boardState)
         if (WinnerLogic.getWinner(row, col) === true) {
+            showTitle(`${GameControls.getPlayer()} WON!!!`)
             window.setTimeout(gameOver, 100);
         }
-        // const colwin = boardState.map(row => row[col]).every(mark => mark === marker);
         else if (isTie()) {
             window.setTimeout(gameOver, 100);
         }
+        else {GameControls.nextPlayer()}
     }
 
     function isTie () {
@@ -58,8 +62,6 @@ const Gameboard = (function () {
     }
 
     function gameOver () {
-        GameControls.nextPlayer()
-        alert('GAME OVER!')
         window.location.reload()
     }
 })();
@@ -97,7 +99,6 @@ const WinnerLogic = (function () {
         (row,col === 1,1)) {
             function win () {
                 let marker = GameControls.getMarker()
-                GameControls.nextPlayer()
                 if ((boardState[0][0] === boardState[1][1] && 
                     boardState[1][1] === boardState[2][2] &&
                     boardState[1][1] === marker) ||
