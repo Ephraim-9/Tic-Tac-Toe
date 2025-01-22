@@ -45,6 +45,7 @@ const Gameboard = (function () {
     }
 
     function gameOver () {
+        GameControls.nextPlayer()
         alert(`${GameControls.getPlayer()} WON!`)
         window.location.reload()
     }
