@@ -32,6 +32,9 @@ body,html {
     justify-content: center;
 }
 
+h3 {
+    margin-bottom: 15px;
+}
 
 .btn {
     display: flex;
