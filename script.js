@@ -39,7 +39,6 @@ const Gameboard = (function () {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
         console.table(boardState)
-        GameControls.nextPlayer()
         if (WinnerLogic.getWinner(row, col) === true) {
             window.setTimeout(gameOver, 100);
         }
@@ -77,13 +76,14 @@ const GameControls = (function () {
 
 const WinnerLogic = (function () {
 
-    let marker = GameControls.getMarker()
-
     function winner (row, col) {
+        
         if ((row,col === 0,0 || row,col === 2,2) ||
         (row,col === 2,0 || row,col === 0,2) ||
         (row,col === 1,1)) {
             function win () {
+                let marker = GameControls.getMarker()
+                GameControls.nextPlayer()
                 if ((boardState[0][0] === boardState[1][1] && 
                     boardState[1][1] === boardState[2][2] &&
                     boardState[1][1] === marker) ||
