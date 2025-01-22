@@ -42,11 +42,15 @@ const Gameboard = (function () {
         if (WinnerLogic.getWinner(row, col) === true) {
             window.setTimeout(gameOver, 100);
         }
+        // const colwin = boardState.map(row => row[col]).every(mark => mark === marker);
+        else if (boardState.map((r) => r[col]).every((c) => c !== '')) {
+            window.setTimeout(gameOver, 100);
+        }
     }
 
     function gameOver () {
         GameControls.nextPlayer()
-        alert(`${GameControls.getPlayer()} WON!`)
+        alert('GAME OVER!')
         window.location.reload()
     }
 })();
@@ -111,7 +115,6 @@ const WinnerLogic = (function () {
             return win()
         }
     }
-
      return {
          getWinner: (row, col) => winner(row, col) 
      }
