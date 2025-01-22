@@ -38,14 +38,23 @@ const Gameboard = (function () {
     function btnClicked (row, col) {
         document.getElementById(`${row}-${col}`).innerText = GameControls.getMarker()
         boardState[row][col] = GameControls.getMarker()
-        console.table(boardState)
+        // console.table(boardState)
         if (WinnerLogic.getWinner(row, col) === true) {
             window.setTimeout(gameOver, 100);
         }
         // const colwin = boardState.map(row => row[col]).every(mark => mark === marker);
-        else if (boardState.map((r) => r[col]).every((c) => c !== '')) {
+        else if (isTie()) {
             window.setTimeout(gameOver, 100);
         }
+    }
+
+    function isTie () {
+            let tie0 = boardState.map((r) => r[0]).every((m) => m !== '')
+            let tie1 = boardState.map((r) => r[1]).every((m) => m !== '')
+            let tie2 = boardState.map((r) => r[2]).every((m) => m !== '')
+            if (tie0 && tie1 && tie2 === true) {
+                return true
+            }
     }
 
     function gameOver () {
